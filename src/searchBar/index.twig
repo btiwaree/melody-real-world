@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="columns is-mobile">
+		<div class="column is-11 is-offset-1">
+			<div class="userInfo">
+				<div class="field has-addons">
+					<div class="control is-expanded">
+						<input class="input" type="text" value="{{ userName }}" ref="userInputBox" placeholder="Enter a Github username: gaearon or btiwaree will do.">
+					</div>
+					<div class="control">
+						<button class="button" ref="{{ submitRequest }}">Go</button>
+					</div>
+				</div>
+				{% if not isFetching %}
+					{% if userInfo and not fetchFailure %}
+						{% include '../userInfo/index.twig' with {
+						id: userInfo.id,
+						userName: userInfo.name,
+						followers: userInfo.followers,
+						following: userInfo.following,
+						publicRepos: userInfo.publicRepos,
+						publicGists: userInfo.publicGists,
+						avatar: userInfo.avatar,
+						profileUrl: userInfo.profileUrl,
+						} only %}
+					{% endif %}
+					{% if fetchFailure %}
+						<h3>Error loading data 😢 Make sure the username is correct</h3>
+					{% endif %}
+				{% else %}
+					<br />
+					<br />
+					Loading...
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
